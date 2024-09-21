@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EclipNex Studios - Forge Your Destiny in Darkness</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-light: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent-blue: #00FFFF;
+            --accent-green: #39FF14;
+            --accent-red: #FF3131;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, var(--accent-blue) 0%, transparent 100%),
+                linear-gradient(135deg, var(--accent-green) 0%, transparent 100%),
+                linear-gradient(225deg, var(--accent-red) 0%, transparent 100%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        #hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        #hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: var(--bg-dark);
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-green);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--accent-blue);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: var(--bg-light);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .game-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 10px;
+            color: var(--accent-green);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid var(--accent-blue);
+        }
+
+        .team-member-quote {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        #contact {
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        footer {
+            background-color: var(--bg-dark);
+            text-align: center;
+            padding: 20px 0;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.9);
+                padding: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 10px 0;
+            }
+
+            #hero h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">EclipNex</div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#games">Games</a>
+                <a href="#team">Team</a>
+                <a href="#news">News</a>
+                <a href="#careers">Careers</a>
+                <a href="#community">Community</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container">
+                <h1>Forge Your Destiny in Darkness</h1>
+                <p>Welcome to EclipNex Studios, where survival becomes an art and every choice shapes your journey.</p>
+                <a href="#games" class="btn">Explore Our Worlds</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>About EclipNex</h2>
+                <p>Born from the convergence of eclipse and nexus, EclipNex Studios crafts immersive survival experiences that challenge players to navigate through shifting landscapes, forge alliances, and make decisions that shape their destiny.</p>
+            </div>
+        </section>
+
+        <section id="games">
+            <div class="container">
+                <h2>Our Games</h2>
+                <div class="game-grid">
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                        <div class="game-info">
+                            <h3>Shadows of Nexus</h3>
+                            <p>Dive into a world where alliances are key to survival. Navigate through shifting landscapes and forge connections that will determine your fate.</p>
+                            <a href="#" class="btn">Play Now</a>
+                        </div>
+                    </div>
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                        <div class="game-info">
+                            <h3>Eclipse Rising</h3>
+                            <p>Experience the thrill of survival as darkness engulfs the world. Use your wits and resources to find light in the most unexpected places.</p>
+                            <a href="#" class="btn">Play Now</a>
+                        </div>
+                    </div>
+                    <div class="game-card">
+                        <div class="game-image" style="background-image: url('/api/placeholder/400/200')"></div>
+                        <div class="game-info">
+                            <h3>Darklight Chronicles</h3>
+                            <p>Embark on an epic journey through a dystopian landscape. Your choices will shape the world and determine the fate of those around you.</p>
+                            <a href="#" class="btn">Play Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team">
+            <div class="container">
+                <h2>Meet the Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="/api/placeholder/150/150" alt="Blake Warren">
+                        <h3>Blake Warren</h3>
+                        <p>Founder & CEO</p>
+                        <p class="team-member-quote">"In the world of EclipNex, every shadow hides an opportunity."</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/api/placeholder/150/150" alt="Adam Voss">
+                        <h3>Adam Voss</h3>
+                        <p>Creative Director</p>
+                        <p class="team-member-quote">"We don't just create games; we craft experiences that linger in the mind."</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/api/placeholder/150/150" alt="Julia Carter">
+                        <h3>Julia Carter</h3>
+                        <p>Lead Game Designer</p>
+                        <p class="team-member-quote">"Our games are puzzles of survival, waiting for players to solve them."</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/api/placeholder/150/150" alt="Marcus Heller">
+                        <h3>Marcus Heller</h3>
+                        <p>Narrative Lead</p>
+                        <p class="team-member-quote">"In the darkness of our stories, players find their own light."</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/api/placeholder/150/150" alt="Golam Sayan Ahamed">
+                        <h3>Golam Sayan Ahamed</h3>
+                        <p>Lead Graphic Designer</p>
+                        <p class="team-member-quote">"Every pixel we design is a step into a world of endless possibilities."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="news">
+            <div class="container">
+                <h2>Latest News</h2>
+                <!-- Add news content here -->
+                <p>Stay tuned for the latest updates from EclipNex Studios!</p>
+            </div>
+        </section>
+
+        <section id="careers">
+            <div class="container">
+                <h2>Join Our Team</h2>
+                <!-- Add career opportunities here -->
+                <p>Interested in shaping the future of survival gaming? Check out our open positions!</p>
+            </div>
+        </section>
+
+        <section id="community">
+            <div class="container">
+                <h2>Community</h2>
+                <!-- Add community content here -->
+                <p>Connect with fellow players, share your experiences, and dive deeper into the EclipNex universe.</p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Join the Nexus</h2>
+                <p>Ready to dive into the world of EclipNex? Have questions about our games? Get in touch with us!</p>
+                <a href="mailto:info@eclipnexstudios.com" class="btn">Contact Us
